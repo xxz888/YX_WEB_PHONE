@@ -185,11 +185,11 @@
     justify-content:center;
   }
   .iosDiv{
-    margin-top: 59px;
+    margin-top: 222px;
     width:440px;
-    height:60px;
+    height:88px;
     background:rgba(37,57,73,1);
-    border-radius:5px;
+    border-radius:44px;
 
     display: flex;
     flex-direction: row;
@@ -198,9 +198,9 @@
   }
   .androidDiv{
     width:440px;
-    height:60px;
+    height:88px;
     background:rgba(37,57,73,1);
-    border-radius:5px;
+    border-radius:44px;
 
     display: flex;
     flex-direction: row;
@@ -208,19 +208,19 @@
     justify-content: center;
   }
   .iosImg{
-    margin-top: 16px;
+    margin-top: 20px;
     background-size: 100% 100%;
-    width: 24px;
-    height: 28px;
+    width: 38px;
+    height: 38px;
   }
   .androidImg{
-    margin-top: 16px;
+    margin-top: 20px;
     background-size: 100% 100%;
-    width: 24px;
-    height: 28px;
+    width: 38px;
+    height: 38px;
   }
   .iosSpan{
-    margin-top: 16px;
+    margin-top: 28px;
     margin-left: 22px;
     width:100px;
     font-size:20px;

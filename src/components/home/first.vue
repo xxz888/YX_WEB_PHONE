@@ -1,12 +1,14 @@
 <template>
   <div>
-    <div class="f-header">
+    <mt-header title="目录" class="mint-header-title">
       <router-link to="/" slot="left">
-        <img class="f-headerImg" src="../../../static/firstback.png" alt="">
+        <mt-button style="width: 50%;height: 100%">
+          <img class="f-headerImg" src="../../../static/firstback.png" alt="">
+        </mt-button>
       </router-link>
+      <mt-button icon="more" slot="right"></mt-button>
+    </mt-header>
 
-     <div class="f-title">目录</div>
-    </div>
 
 
     <div class="f-line">
@@ -62,24 +64,33 @@ Vue.component(CellSwipe.name, CellSwipe);
 </script>
 
 <style scoped>
-.f-header{
-  width: 100%;
-  height: 105px;
-  margin: 0;
-  padding: 0;
-  background: white;
+  .mint-header-title {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-size: inherit;
+    font-weight: 400;
+    -webkit-box-flex: 1;
+    -ms-flex: 1;
+    flex: 1;
+    color: #000;
+    font-size: 28px;
+    height: 105px;
+    background-color: white;
 
-  display: flex;
-  flex-direction: row;
-  /*flex-wrap: nowrap;*/
-  /*justify-content: space-between;*/
-}
+    font-family:PingFang SC;
+    font-weight:400;
+    color:rgba(34,34,34,1);
+    line-height:105px;
+  }
+
   .f-headerImg{
+    margin-left: 5%;
+    margin-top: 50px;
     width: 44px;
     height: 44px;
     background-size: 100% 100%;
-    margin-top: 37px;
-    margin-left:19px;
+    margin-left: 0;
   }
 
   .f-line{
@@ -88,16 +99,7 @@ Vue.component(CellSwipe.name, CellSwipe);
     margin: 0;padding: 0;
     /*border:1px solid rgba(195,195,195,1);*/
   }
-  .f-title{
 
-    margin-left: 235px;
-    height:105px;
-    font-size:28px;
-    font-family:PingFang SC;
-    font-weight:400;
-    color:rgba(34,34,34,1);
-    line-height:105px;
-  }
   .cellStyle{
     margin-left: 35px;
     width: 900px;

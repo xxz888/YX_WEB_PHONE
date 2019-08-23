@@ -1,13 +1,23 @@
 <template>
   <div>
-    <!-- 标题栏 -->
-    <div class="f-header">
-      <router-link :to="backVc" slot="left">
-        <img class="f-headerImg" src="../../../static/firstback.png" alt="">
-      </router-link>
-    </div>
 
-    <div class="f-body"  v-for="item0 in dataList">
+    <mt-header :title="itemStart.name" class="mint-header-title">
+      <router-link :to="backVc" slot="left">
+        <mt-button style="width: 50%;height: 100%">
+          <img class="f-headerImg" src="../../../static/firstback.png" alt="">
+        </mt-button>
+      </router-link>
+      <mt-button icon="more" slot="right"></mt-button>
+    </mt-header>
+
+
+
+    <div class="f-body"  v-for="(item0,index) in dataList">
+
+      <!--<div class="f-body-image">-->
+        <!--<img class="f-body-image" :src="itemStart.child_list[index].photo" alt="">-->
+      <!--</div>-->
+
       <div v-for="item in item0">
         <div   v-if="item.obj==1" class="obj1" >{{item.detail}}</div>
         <div   v-if="item.obj==2" class="obj2" >{{item.detail}}</div>
@@ -25,7 +35,6 @@
 
 <script>
   import { Swipe, SwipeItem } from 'mint-ui';
-
   export default {
     component:[Swipe,SwipeItem],
     name: 'third',
@@ -33,7 +42,8 @@
       return {
         title:"",
         dataList:[],
-        backVc:'/second/' + this.$route.params.secondid
+        backVc:'/second/' + this.$route.params.secondid,
+        itemStart:{}
       }
     },
     created:function(){
@@ -41,8 +51,16 @@
     },
     methods:{
       getData(){
-          var self = this;
-          this.$axios.get('http://thegdlife.com:8001/pub/option/0/'+this.$route.params.id+'/').then((res) => {
+        var self = this;
+        var res = JSON.parse(localStorage.getItem("cacheData_second"));
+        //根据id找对应的item
+        for (var i = 0; i < res.length; i++) {
+          if (this.$route.params.id == res[i].id) {
+            this.itemStart = res[i];
+          }
+        }
+
+        this.$axios.get('http://thegdlife.com:8001/pub/option/0/'+this.$route.params.id+'/').then((res) => {
             self.dataList = res.data;
           })
       }
@@ -51,25 +69,36 @@
 </script>
 
 <style scoped>
-  .f-header{
-    width: 100%;
+  .mint-header-title {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-size: inherit;
+    font-weight: 400;
+    -webkit-box-flex: 1;
+    -ms-flex: 1;
+    flex: 1;
+    color: #000;
+    font-size: 28px;
     height: 105px;
-    margin: 0;
-    padding: 0;
-    background: white;
+    background-color: white;
 
-    display: flex;
-    flex-direction: row;
-    /*flex-wrap: nowrap;*/
-    /*justify-content: space-between;*/
+    font-family:PingFang SC;
+    font-weight:400;
+    color:rgba(34,34,34,1);
+    line-height:105px;
   }
+
   .f-headerImg{
+    margin-left: 5%;
+    margin-top: 50px;
     width: 44px;
     height: 44px;
     background-size: 100% 100%;
-    margin-top: 37px;
-    margin-left:19px;
+    margin-left: 0;
   }
+
+
   .f-body{
     margin-left: 5%;
     width: 90%;
@@ -77,8 +106,7 @@
   }
   .obj1{
     text-align: left;
-    margin-top: 20px;
-    margin-bottom: 20px;
+    margin-top: 40px;
 
     font-size:40px;
     font-family:PingFang SC;
@@ -88,37 +116,35 @@
   }
   .obj2{
     text-align: left;
-    margin-top: 20px;
-    margin-bottom: 20px;
-
-    font-size:30px;
+    margin-top: 40px;
+    font-size:28px;
     font-family:PingFang SC;
     font-weight:300;
-    color:rgba(34,34,34,1);
-    line-height:36px;
+    color:rgba(51,51,51,1);
   }
   .obj3{
     text-align: left;
-    margin-top: 20px;
-    margin-bottom: 20px;
+    margin-top: 40px;
 
     width: 100%;
     height: auto;
   }
   .obj4{
+    margin-top: 40px;
+
     width: 100%;
 
     height: 1000px;
   }
   .obj5{
     text-align: left;
-    margin-top: 20px;
-    margin-bottom: 20px;
+    margin-top: 40px;
 
-    font-size:28px;
-    font-family:PingFangSC-Light,  sans-serif;
-    font-weight:300;
-    color:rgba(34,34,34,1);
-    line-height:36px;
+    font-size:32px;
+    font-family:PingFang SC;
+    font-weight:500;
+    color:rgba(0,0,0,1);
+
   }
+
 </style>
