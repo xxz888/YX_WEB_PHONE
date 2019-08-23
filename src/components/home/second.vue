@@ -7,7 +7,6 @@
           <img class="f-headerImg" src="../../../static/firstback.png" alt="">
         </mt-button>
       </router-link>
-      <mt-button icon="more" slot="right"></mt-button>
     </mt-header>
 
     <div class="f-line">
