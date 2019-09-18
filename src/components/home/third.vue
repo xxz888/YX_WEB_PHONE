@@ -19,7 +19,7 @@
 
       <div v-for="item in item0">
         <div   v-if="item.obj==1" class="obj1" >{{item.detail}}</div>
-        <div   v-if="item.obj==2" class="obj2" >{{item.detail}}</div>
+        <div   v-if="item.obj==2" class="obj2" v-html="item.detail">{{item.detail}}</div>
         <img   v-if="item.obj==3" class="obj3" :src="item.detail" />
         <mt-swipe :auto="4000000" v-if="item.obj==4" class="obj4">
           <mt-swipe-item v-for="imgItem in item.detail_list"><img class="obj3" :src="imgItem" alt=""></mt-swipe-item>
@@ -45,6 +45,12 @@
         itemStart:{}
       }
     },
+    //需要watch监听$route to为新传入的id 更改当前orderId再执行方法即可刷新页面
+    watch:{
+      '$route' (to, from) {
+        this.getData()
+      }
+    },
     created:function(){
       this.getData();
     },
@@ -52,16 +58,66 @@
       getData(){
         var self = this;
         var res = JSON.parse(localStorage.getItem("cacheData_second"));
+
+        var resFirst = JSON.parse(localStorage.getItem("cacheData"));
+
         //根据id找对应的item
-        for (var i = 0; i < res.length; i++) {
-          if (this.$route.params.id == res[i].id) {
-            this.itemStart = res[i];
+        var dic = resFirst[this.$route.params.secondid];
+        for (let i = 0; i < dic['child_list'].length; i++) {
+          if (this.$route.params.id == dic['child_list'][i]['id']){
+            this.itemStart = dic['child_list'][i];
           }
         }
 
-        this.$axios.get('http://thegdlife.com:8001/pub/option/0/'+this.$route.params.id+'/').then((res) => {
+        this.$axios.get('http://lpszn.com/api/pub/option/0/'+this.$route.params.id+'/').then((res) => {
             self.dataList = res.data;
-          })
+          var obj6String = '';
+
+          for (let i = 0; i < self.dataList.length; i++) {
+            for (let j = 0; j < self.dataList[i].length; j++) {
+              var dici = self.dataList[i][j];
+              if (dici['obj'] == 6){
+                obj6String = dici['detail'];
+              }
+            }
+          }
+
+          if (obj6String != ''){
+            var obj6Array = obj6String.split(';');
+            for (let j = 0; j < obj6Array.length; j++) {
+              var obj6Arr1 = obj6Array[j].split(',');
+
+              var nameString = obj6Arr1[0];
+              var id1 = obj6Arr1[2].split('-')[0];
+
+              var id2 = obj6Arr1[2].split('-')[1];
+              var id3 = obj6Arr1[2].split('-')[2];
+
+
+              var secondid = '';
+              //根据id找对应的item
+              for (let i = 0; i < resFirst.length; i++) {
+                if (id2 == resFirst[i]['id']){
+                  secondid = i;
+                }
+              }
+
+              var backVC111 = self.backVc;
+              //根据id得到
+              for (let k = 0; k < self.dataList.length; k++) {
+                for (let i = 0; i < self.dataList[k].length; i++) {
+                  var dici = self.dataList[k][i];
+
+                  if ((dici['detail']).indexOf(nameString) != -1 && dici['obj'] == 2) {
+                    self.dataList[k][i]['detail'] = self.dataList[k][i]['detail'].replace(nameString,`<a style="text-decoration:none;"  href="#/third/${id3}/${secondid}">${nameString}</a>`)
+                  }
+                }
+
+              }
+            }
+          }
+
+        })
       }
     }
   }

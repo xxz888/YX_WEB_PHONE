@@ -46,7 +46,7 @@
     methods:{
       getData() {
         var self = this;
-        this.$axios.get('http://thegdlife.com:8001/pub/all_option/').then((res) => {
+        this.$axios.get('http://lpszn.com/api/pub/all_option/').then((res) => {
           localStorage.setItem("cacheData",JSON.stringify(res.data[0]["child_list"]));
         })
       },

@@ -11,7 +11,7 @@
     var viewportEl = document.querySelector('meta[name="viewport"]'),
       hotcssEl = document.querySelector('meta[name="hotcss"]'),
       dpr = window.devicePixelRatio || 1,
-      maxWidth = 540,
+      maxWidth = 750,
       designWidth = 0;
 
     dpr = dpr >= 3 ? 3 : (dpr >= 2 ? 2 : 1);
@@ -34,7 +34,6 @@
         }
       }
     }
-
     document.documentElement.setAttribute('data-dpr', dpr);
     hotcss.dpr = dpr;
 

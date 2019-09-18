@@ -6,6 +6,10 @@ import second from "../components/home/second.vue"
 import third from "../components/home/third.vue"
 import aboutUs from "../components/home/aboutUs.vue"
 
+import p_Login from "../components/phone/p_Login.vue"
+import p_Login1 from "../components/phone/p_Login1.vue"
+import p_Login2 from "../components/phone/p_Login2.vue"
+
 Vue.use(Router)
 
 export default new Router({
@@ -34,7 +38,24 @@ export default new Router({
       path: "/aboutUs",
       name: "aboutUs",
       component: aboutUs,
-    }
+    },
+    {
+      path: "/p_Login",
+      name: "p_Login",
+      component: p_Login,
+    },
+
+    {
+      path: "/p_Login1",
+      name: "p_Login1",
+      component: p_Login1,
+    },
+
+    {
+      path: "/p_Login2",
+      name: "p_Login2",
+      component: p_Login2,
+    },
 
 
   ]
