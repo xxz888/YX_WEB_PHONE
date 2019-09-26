@@ -47,14 +47,28 @@
     },
     methods:{
       getData(){
-        var res = JSON.parse(localStorage.getItem("cacheData"));
+
+
         let id = this.$route.params.id;
-        this.dataList = res[id]["child_list"];
+        var self = this;
+          this.$axios.get('http://lpszn.com/api/pub/all_option/').then((res) => {
+            var resdic = res.data[0]["child_list"]
+            self.dataList = resdic[id]["child_list"];
+            self.title = resdic[id].name;
+          })
 
-        localStorage.setItem("cacheData_second",JSON.stringify(this.dataList));
 
 
-        this.title = res[id].name;
+
+
+        // var res = JSON.parse(localStorage.getItem("cacheData"));
+        // let id = this.$route.params.id;
+        // this.dataList = res[id]["child_list"];
+        //
+        // localStorage.setItem("cacheData_second",JSON.stringify(this.dataList));
+        //
+        //
+        // this.title = res[id].name;
       }
     }
   }

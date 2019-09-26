@@ -54,9 +54,13 @@ Vue.component(CellSwipe.name, CellSwipe);
       //请求
       //请求
       getData() {
+
+
+
         var self = this;
-        var res = JSON.parse(localStorage.getItem("cacheData"));
-        self.dataArray = res;
+        this.$axios.get('http://lpszn.com/api/pub/all_option/').then((res) => {
+            self.dataArray = res.data[0]["child_list"];
+        })
       },
     }
   }
