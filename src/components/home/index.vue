@@ -60,14 +60,14 @@
           var ua = window.navigator.userAgent.toLowerCase();
           //微信
           if (ua.match(/MicroMessenger/i) == 'micromessenger') {
-            window.location = 'https://itunes.apple.com/cn/app/id1454467501';
+            window.location = 'https://itunes.apple.com/cn/app/id1490358357';
           } else {//非微信浏览器
             if (navigator.userAgent.match(/(iPhone|iPod|iPad);?/i)) {
               var loadDateTime = new Date();
               window.setTimeout(function () {
                 var timeOutDateTime = new Date();
                 if (timeOutDateTime - loadDateTime < 5000) {
-                  window.location = "https://itunes.apple.com/cn/app/id1454467501";//ios下载地址
+                  window.location = "https://itunes.apple.com/cn/app/id1490358357";//ios下载地址
                 } else {
                   window.close();
                 }

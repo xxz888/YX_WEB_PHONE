@@ -1,13 +1,37 @@
 <template>
   <div>
 
-    <mt-header :title="itemStart.name" class="mint-header-title">
-      <router-link :to="backVc" slot="left">
-        <mt-button style="width: 50%;height: 100%">
-          <img class="f-headerImg" src="../../../static/firstback.png" alt="">
-        </mt-button>
-      </router-link>
-    </mt-header>
+    <!--<mt-header  class="mint-header-title">-->
+      <!--<router-link :to="backVc" slot="left">-->
+      <!--</router-link>-->
+      <!--<router-link :to="backVc" slot="right">-->
+        <!--&lt;!&ndash;<div>&ndash;&gt;-->
+          <!--<span>下载APP</span>-->
+        <!--<span>-->
+          <!--<img class="f-headerImg" src="../../../static/thirdshu1.png" alt="">-->
+        <!--</span>-->
+        <!--&lt;!&ndash;</div>&ndash;&gt;-->
+
+      <!--</router-link>-->
+    <!--</mt-header>-->
+    <div class="headerDiv">
+        <img class="f-headerImg" src="../../../static/thirdlps.png" alt="">
+
+        <div class="headerDiv">
+          <span class="headerSpan" @click="jumpMarket()">下载APP</span>
+
+          <img class="f-headershu" src="../../../static/thirdshu1.png" alt="">
+          <router-link to="/first" slot="left">
+            <img class="f-headerMore" src="../../../static/thirdMore.png" alt="">
+          </router-link>
+        </div>
+
+
+
+
+    </div>
+
+    <div class="f-line"></div>
 
 
 
@@ -18,7 +42,11 @@
       <!--</div>-->
 
       <div v-for="item in item0">
-        <div   v-if="item.obj==1" class="obj1" >{{item.detail}}</div>
+
+        <div   v-if="item.obj==1" class="obj1" >
+            <img class="f-headershu2" src="../../../static/thirdshu2.png" alt="">
+            <div style="margin-left: 36px">{{item.detail}}</div>
+        </div>
         <div   v-if="item.obj==2" class="obj2" v-html="item.detail">{{item.detail}}</div>
         <img   v-if="item.obj==3" class="obj3" :src="item.detail" />
         <mt-swipe :auto="4000000" v-if="item.obj==4" class="obj4">
@@ -27,6 +55,12 @@
         <div   v-if="item.obj==5" class="obj5" >{{item.detail}}</div>
       </div>
 
+    </div>
+
+    <div class="appBtn">
+      <div class="box_relative" @click="jumpMarket()">
+        APP内打开
+      </div>
     </div>
   </div>
 
@@ -41,7 +75,7 @@
       return {
         title:"",
         dataList:[],
-        backVc:'/second/' + this.$route.params.secondid,
+        backVc:'/#/',
         itemStart:{}
       }
     },
@@ -131,12 +165,126 @@
 
 
 
-      }
+      },
+      jumpMarket(){
+
+        var u = navigator.userAgent;
+        var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; //android终端
+        var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+
+        if (isiOS) {
+          var ua = window.navigator.userAgent.toLowerCase();
+          //微信
+          if (ua.match(/MicroMessenger/i) == 'micromessenger') {
+            window.location = 'https://itunes.apple.com/cn/app/id1490358357';
+          } else {//非微信浏览器
+            if (navigator.userAgent.match(/(iPhone|iPod|iPad);?/i)) {
+              var loadDateTime = new Date();
+              window.setTimeout(function () {
+                var timeOutDateTime = new Date();
+                if (timeOutDateTime - loadDateTime < 5000) {
+                  window.location = "https://itunes.apple.com/cn/app/id1490358357";//ios下载地址
+                } else {
+                  window.close();
+                }
+              }, 2000);
+              window.location = "schema://";
+            } else if (navigator.userAgent.match(/android/i)) {
+              var state = null;
+              try {
+                window.location = 'weixin://';
+                setTimeout(function () {
+                  window.location = "https://m.wandoujia.com/apps/com.jiuju.thegoodlife"; //android下载地址
+                }, 500);
+              } catch (e) {
+              }
+            }
+          }
+        } else {
+          window.location = 'weixin://';
+          setTimeout(function () {
+            window.location = "https://m.wandoujia.com/apps/com.jiuju.thegoodlife"; //android下载地址
+          }, 500);
+        }
+        ;
+      },
     }
   }
 </script>
 
 <style scoped>
+  .appBtn{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    position:fixed;
+    left: 30px;
+    bottom: 50px;
+    width: 100%;
+    height:72px;
+  }
+  .box_relative {
+
+
+    width:220px;
+    height:72px;
+    background:rgba(16,35,58,1);
+    box-shadow:0px 7px 15px 3px rgba(9,15,44,0.1);
+    border-radius:36px;
+    text-align: center;
+    font-size:24px;
+    font-family:PingFang SC;
+    font-weight:500;
+    color:rgba(255,255,255,1);
+    line-height:72px;
+  }
+  .headerSpan{
+    width:128px;
+    height:34px;
+    font-size:32px;
+    font-weight:400;
+    color:rgba(7,30,54,1);
+    font-family:PingFang SC;
+    font-weight:300;
+    margin-right: 18px;
+    line-height:34px;
+    margin-top: 36px;
+  }
+  .headerDiv{
+    height: 105px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    text-align: center;
+  }
+  .f-headershu{
+       width: 44px;
+       height: 44px;
+       background-size: 100% 100%;
+       margin-top: 31px;
+       margin-right: 12px;
+
+     }
+  .f-headershu2{
+    width: auto;
+    height:80%;
+  }
+  .f-headerMore{
+    width: 44px;
+    height: 44px;
+    background-size: 100% 100%;
+    margin-top: 31px;
+    margin-right: 35px;
+  }
+  .f-headerImg{
+    margin-left: 5%;
+    width: 183px;
+    height: 54px;
+    background-size: 100% 100%;
+    line-height: 105px;
+    margin-top: 27px;
+  }
+
   .mint-header-title {
     overflow: hidden;
     text-overflow: ellipsis;
@@ -157,30 +305,32 @@
     line-height:105px;
   }
 
-  .f-headerImg{
-    margin-left: 5%;
-    margin-top: 50px;
-    width: 44px;
-    height: 44px;
-    background-size: 100% 100%;
-    margin-left: 0;
+
+
+  .f-line{
+    height:1px;
+    background:rgba(238,238,238,1) ;
+    margin: 0;padding: 0;
   }
-
-
   .f-body{
     margin-left: 5%;
     width: 90%;
     height: 100%;
   }
+
   .obj1{
+    height: 100%;
     text-align: left;
     margin-top: 40px;
-
-    font-size:40px;
+    font-size:38px;
     font-family:PingFang SC;
     font-weight:bold;
     color:rgba(34,34,34,1);
-    line-height:36px;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+    text-align: center;
   }
   .obj2{
     text-align: left;
