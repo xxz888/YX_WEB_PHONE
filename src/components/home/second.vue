@@ -53,6 +53,15 @@
         var self = this;
           this.$axios.get('http://lpszn.com/api/pub/all_option/').then((res) => {
             var resdic = res.data[0]["child_list"]
+            resdic.sort(function (a, b) {
+              if (a.weight < b.weight) {
+                return -1;
+              } else if (a.weight == b.weight) {
+                return 0;
+              } else {
+                return 1;
+              }
+            });
             self.dataList = resdic[id]["child_list"];
             self.title = resdic[id].name;
           })

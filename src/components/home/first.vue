@@ -59,7 +59,17 @@ Vue.component(CellSwipe.name, CellSwipe);
 
         var self = this;
         this.$axios.get('http://lpszn.com/api/pub/all_option/').then((res) => {
-            self.dataArray = res.data[0]["child_list"];
+          self.dataArray = res.data[0]["child_list"];
+          self.dataArray.sort(function (a, b) {
+            if (a.weight < b.weight) {
+              return -1;
+            } else if (a.weight == b.weight) {
+              return 0;
+            } else {
+              return 1;
+            }
+          });
+          console.log(self.dataArray);
         })
       },
     }

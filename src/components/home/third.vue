@@ -97,9 +97,17 @@
 
 
         this.$axios.get('http://lpszn.com/api/pub/all_option/').then((res) => {
-
-
           var resFirst = res.data[0]["child_list"];
+          resFirst.sort(function (a, b) {
+            if (a.weight < b.weight) {
+              return -1;
+            } else if (a.weight == b.weight) {
+              return 0;
+            } else {
+              return 1;
+            }
+          });
+
 
           //根据id找对应的item
           var dic = resFirst[self.$route.params.secondid];
